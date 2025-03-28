@@ -1,6 +1,9 @@
 pipeline {
     agent {
-            docker { image 'selenium/standalone-chrome:latest' }
+        docker {
+            image 'selenium/standalone-chrome:latest'
+            args '-v /dev/shm:/dev/shm'
+        }
     }
     environment {
         SELENIUM_HOST = "http://localhost:4444/wd/hub"  // Адрес Selenium Grid
