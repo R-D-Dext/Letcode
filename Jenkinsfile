@@ -1,8 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'maven:3.8.4-openjdk-17'  // Используем образ с Maven и JDK 17
-            args '-v /tmp/.m2:/root/.m2'   // Монтируем директорию .m2 для кеша зависимостей
+            docker { image 'selenium/standalone-chrome:latest' }
         }
     }
     environment {
