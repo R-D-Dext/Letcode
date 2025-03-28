@@ -2,7 +2,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
+import java.net.URL;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
@@ -16,7 +18,9 @@ public class BaseTest {
     @BeforeEach
     public void before() {
         System.out.println("Start before");
-        chromeDriver = new ChromeDriver();
+        chromeDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
+
+        //chromeDriver = new ChromeDriver();
         chromeDriver.manage().window().maximize();
         chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         chromeDriver.get(mainPageUrl);
