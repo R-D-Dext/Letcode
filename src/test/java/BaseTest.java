@@ -18,9 +18,7 @@ public class BaseTest {
     @BeforeEach
     public void before() {
         System.out.println("Start before");
-        chromeDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), DesiredCapabilities.chrome());
-
-        //chromeDriver = new ChromeDriver();
+        chromeDriver = new ChromeDriver();
         chromeDriver.manage().window().maximize();
         chromeDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         chromeDriver.get(mainPageUrl);

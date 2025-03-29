@@ -1,39 +1,20 @@
 pipeline {
-    agent {
-        docker {
-            image 'selenium/standalone-chrome:latest'
-            args '-v /dev/shm:/dev/shm'
-        }
-    }
-    environment {
-        SELENIUM_HOST = "http://localhost:4444/wd/hub"  // Адрес Selenium Grid
-    }
+    agent any
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/R-D-Dext/Letcode'  // URL репозитория с автотестами
+                git 'https://github.com/yourrepo.git'
             }
         }
-        stage('Install Dependencies') {
+        stage('Run Tests') {
             steps {
-                sh 'mvn clean install'  // Устанавливаем зависимости
-            }
-        }
-        stage('Run Selenium Tests') {
-            steps {
-                sh 'mvn test'  // Запускаем тесты
+                sh 'mvn clean test'
             }
         }
         stage('Generate Allure Report') {
             steps {
-                sh 'mvn allure:report'  // Генерируем отчет Allure
+                sh 'mvn allure:report'
             }
-        }
-    }
-    post {
-        always {
-            junit '**/target/test-*.xml'  // Публикуем результаты тестов (JUnit формат)
-            allure includeProperties: false, results: [[path: 'target/allure-results']]  // Публикуем Allure отчет
         }
     }
 }
