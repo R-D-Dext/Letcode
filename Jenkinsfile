@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/R-D-Dext/Letcode'
+                git branch: 'main', url: 'https://github.com/R-D-Dext/Letcode'
             }
         }
         stage('Run Tests') {
